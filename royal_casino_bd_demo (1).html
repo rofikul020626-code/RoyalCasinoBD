@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10100f">
+<title>Royal Casino BD — Demo</title>
+<style>
+:root{--bg:#10100f;--panel:#1b1a17;--gold:#e9c46a;--gold2:#a87924;--muted:#aaa394;--green:#1e8b5a;--red:#b53b43}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#302617 0,#10100f 55%);color:#f8f1df;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;min-height:100vh}
+header{padding:22px 18px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #493a20}
+.brand{font-weight:900;letter-spacing:.5px;font-size:20px;color:var(--gold)}.sub{font-size:12px;color:var(--muted)}
+.balance{background:#282318;border:1px solid #735a2a;padding:9px 12px;border-radius:14px;text-align:right;white-space:nowrap}.balance b{color:var(--gold);font-size:17px}
+main{max-width:900px;margin:auto;padding:18px}.notice{background:#211e17;border:1px solid #6c5528;color:#e9d7a8;padding:11px 13px;border-radius:12px;font-size:12px;line-height:1.5;margin-bottom:18px}
+h1{font-size:23px;margin:10px 0 4px}.muted{color:var(--muted);font-size:13px}
+.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.game{background:linear-gradient(145deg,#26231c,#171614);border:1px solid #4b3b20;border-radius:17px;padding:17px 14px;min-height:126px;text-align:left;color:#fff;cursor:pointer}
+.game:active,button:active{transform:scale(.98)}.emoji{font-size:29px}.game strong{display:block;margin-top:8px;font-size:15px}.game small{color:var(--muted)}
+.card{background:linear-gradient(145deg,#24221d,#171614);border:1px solid #554324;border-radius:18px;padding:18px;margin-top:16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:12px;padding:12px 16px;background:linear-gradient(135deg,#f1d27e,#b9892f);color:#21190b;font-weight:800;font-size:14px;cursor:pointer}
+button.secondary{background:#353128;color:#f5e7c2;border:1px solid #65522e}
+button:disabled{opacity:.45;cursor:not-allowed}
+input,select{background:#111;color:#fff;border:1px solid #65522e;border-radius:10px;padding:10px;width:100%;margin:7px 0 12px}
+label{font-size:13px;color:#d7c9a9}
+.result{font-size:25px;text-align:center;padding:24px 8px;color:var(--gold);font-weight:900;min-height:85px}
+.back{margin-bottom:8px}.tiles{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.tile{background:#f7f1df;color:#191919;border-radius:10px;padding:15px 13px;font-size:24px;font-weight:900;min-width:55px;text-align:center;box-shadow:0 4px 0 #b8aa8a}
+.tile.red{color:#b3222d}.tile.dark{background:#24221d;color:#f2d17a;border:1px solid #66522b}
+footer{text-align:center;color:#817969;font-size:11px;padding:28px 10px}
+@media(min-width:650px){.games{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">👑 ROYAL CASINO BD</div><div class="sub">শুধু বিনোদনের জন্য • ডেমো সংস্করণ</div></div><div class="balance"><div class="sub">ভার্চুয়াল কয়েন</div><b id="coins">1,000</b> 🪙</div></header>
+<main>
+<div class="notice">⚠️ এটি সম্পূর্ণ বিনামূল্যের ডেমো। কয়েনের কোনো আর্থিক মূল্য নেই। কেনা, বিক্রি, জমা বা নগদে উত্তোলনের ব্যবস্থা নেই। ১৮ বছরের কম বয়সীদের জন্য নয়।</div>
+<section id="home">
+<h1>গেম বেছে নিন</h1><div class="muted">খেলুন, মজা করুন — কোনো আসল টাকা নয়।</div>
+<div class="games">
+<button class="game" onclick="openGame('slots')"><span class="emoji">🎰</span><strong>স্লট মেশিন</strong><small>তিনটি চিহ্ন মিলান</small></button>
+<button class="game" onclick="openGame('roulette')"><span class="emoji">🎡</span><strong>রুলেট</strong><small>রঙ অনুমান করুন</small></button>
+<button class="game" onclick="openGame('cards')"><span class="emoji">🂡</span><strong>কার্ড গেম</strong><small>উচ্চ কার্ড জিতবে</small></button>
+<button class="game" onclick="openGame('poker')"><span class="emoji">♠️</span><strong>পোকার ড্র</strong><small>পাঁচটি কার্ড দেখুন</small></button>
+<button class="game" onclick="openGame('spin')"><span class="emoji">🎯</span><strong>লাকি স্পিন</strong><small>এলোমেলো বোনাস</small></button>
+<button class="game" onclick="openGame('dice')"><span class="emoji">🎲</span><strong>ডাইস গেম</strong><small>দুটি পাশা ফেলুন</small></button>
+</div>
+<div class="card"><div class="row"><b>🎁 দৈনিক ফ্রি বোনাস</b><button class="secondary" id="bonusBtn" onclick="dailyBonus()">বোনাস নিন</button></div><p class="muted" id="bonusText">প্রতিদিন একবার ৫০টি ডেমো কয়েন নেওয়া যাবে।</p></div>
+</section>
+<section id="play" hidden>
+<button class="secondary back" onclick="goHome()">← সব গেম</button>
+<div class="card"><div class="row"><div><h1 id="gameTitle">গেম</h1><div class="muted" id="gameDesc"></div></div><span style="font-size:30px" id="gameIcon">🎮</span></div>
+<label for="bet">খেলার ডেমো কয়েন (১০–১০০)</label><input id="bet" type="number" min="10" max="100" step="10" value="10">
+<div id="gameControls"></div><div class="result" id="result">খেলা শুরু করতে বোতাম চাপুন</div><div class="muted" id="detail" style="text-align:center"></div>
+</div></section>
+</main>
+<footer>Royal Casino BD • Offline demo prototype • কোনো বাস্তব অর্থ বা পুরস্কার নেই</footer>
+<script>
+let coins=1000, current='',lastBonus='';
+const $=id=>document.getElementById(id);
+function update(){ $('coins').textContent=coins.toLocaleString('en-US'); }
+function openGame(g){current=g;$('home').hidden=true;$('play').hidden=false;$('result').textContent='খেলা শুরু করতে বোতাম চাপুন';$('detail').textContent='';$('bet').value=10;
+const data={
+slots:['স্লট মেশিন','তিনটি একই চিহ্ন এলে ডেমো বোনাস।','🎰','<button onclick="playSlots()">স্পিন করুন</button>'],
+roulette:['রুলেট','লাল বা কালো বেছে নিন। সঠিক হলে ডেমো কয়েন ফেরতসহ বোনাস।','🎡','<select id="choice"><option value="red">লাল</option><option value="black">কালো</option></select><button onclick="playRoulette()">চাকা ঘোরান</button>'],
+cards:['কার্ড গেম','আপনার কার্ড বনাম কম্পিউটারের কার্ড।','🂡','<button onclick="playCards()">কার্ড তুলুন</button>'],
+poker:['পোকার ড্র','পাঁচটি এলোমেলো কার্ড দেখুন—শুধু কার্ডের মজা, কোনো বাজি বা নগদ পুরস্কার নেই।','♠️','<button onclick="playPoker()">পাঁচ কার্ড দেখুন</button>'],
+spin:['লাকি স্পিন','চাকা থেকে একটি বিনামূল্যের ডেমো ফলাফল।','🎯','<button onclick="playSpin()">স্পিন করুন</button>'],
+dice:['ডাইস গেম','দুটি পাশা ফেলুন। মোট ৭ বা বেশি হলে ডেমো বোনাস।','🎲','<button onclick="playDice()">পাশা ফেলুন</button>']
+};let d=data[g];$('gameTitle').textContent=d[0];$('gameDesc').textContent=d[1];$('gameIcon').textContent=d[2];$('gameControls').innerHTML=d[3];}
+function goHome(){$('play').hidden=true;$('home').hidden=false;current='';}
+function stake(){let n=Number($('bet').value);if(!Number.isInteger(n)||n<10||n>100||n%10!==0){$('result').textContent='১০ থেকে ১০০-এর মধ্যে ১০-এর গুণিতক দিন।';return null}if(coins<n){$('result').textContent='পর্যাপ্ত ডেমো কয়েন নেই।';return null}coins-=n;update();return n}
+function finish(net,msg,detail=''){coins=Math.max(0,coins+net);update();$('result').textContent=msg;$('detail').textContent=detail}
+function playSlots(){let b=stake();if(!b)return;let a=['🍒','🍋','🔔','⭐','7️⃣'];let x=[0,1,2].map(()=>a[Math.floor(Math.random()*a.length)]);$('result').textContent=x.join('  ');let win=x.every(v=>v===x[0]);finish(win?b*5:0,win?'🎉 তিনটি মিলেছে! +'+(b*5)+' কয়েন':'এবার মেলেনি।',win?'ডেমো পুরস্কার যোগ হয়েছে।':'আবার চেষ্টা করতে পারেন।');}
+function playRoulette(){let b=stake();if(!b)return;let n=Math.floor(Math.random()*37),color=n===0?'green':n%2?'red':'black',pick=$('choice').value;let win=color===pick;finish(win?b*2:0,'ফলাফল: '+n+' • '+color.toUpperCase(),win?'সঠিক অনুমান! +'+b+' নেট কয়েন':'মেলেনি।');}
+function playCards(){let b=stake();if(!b)return;let a=Math.ceil(Math.random()*13),c=Math.ceil(Math.random()*13),names=['','A','2','3','4','5','6','7','8','9','10','J','Q','K'];$('result').textContent='আপনি '+names[a]+'  বনাম  কম্পিউটার '+names[c];finish(a>c?b*2:a===c?b:0,a>c?'আপনি জিতেছেন!':a===c?'ড্র!':'কম্পিউটার জিতেছে।');}
+function playPoker(){let b=stake();if(!b)return;let suits=['♠','♥','♦','♣'],ranks=['A','2','3','4','5','6','7','8','9','10','J','Q','K'],deck=[];suits.forEach(s=>ranks.forEach(r=>deck.push({s,r})));for(let i=deck.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]]}let hand=deck.slice(0,5);$('result').innerHTML='';let wrap=document.createElement('div');wrap.className='tiles';hand.forEach(c=>{let e=document.createElement('span');e.className='tile '+(['♥','♦'].includes(c.s)?'red':'');e.textContent=c.r+c.s;wrap.appendChild(e)});$('result').appendChild(wrap);finish(0,'আপনার পাঁচটি কার্ড তৈরি।','এটি শুধু কার্ড প্রদর্শনের ডেমো; কোনো জয়-পরাজয় বা পুরস্কার নেই।');}
+function playSpin(){let b=stake();if(!b)return;let outcomes=[0,0,0,10,20,30,50],v=outcomes[Math.floor(Math.random()*outcomes.length)];finish(v,'🎯 স্পিন ফলাফল: '+v+' কয়েন',v?'ডেমো কয়েন যোগ হয়েছে।':'এইবার বোনাস আসেনি।');}
+function playDice(){let b=stake();if(!b)return;let a=1+Math.floor(Math.random()*6),c=1+Math.floor(Math.random()*6),s=a+c;finish(s>=7?b*2:0,'🎲 '+a+' + '+c+' = '+s,s>=7?'সফল! ডেমো বোনাস পেয়েছেন।':'এবার বোনাস নেই।');}
+function dailyBonus(){let day=new Date().toDateString();if(lastBonus===day){$('bonusText').textContent='আজকের বোনাস নেওয়া হয়েছে। আগামীকাল আবার আসুন।';return}lastBonus=day;coins+=50;update();$('bonusText').textContent='৫০টি ফ্রি ডেমো কয়েন যোগ হয়েছে!';$('bonusBtn').disabled=true;}
+update();
+</script>
+</body></html>
